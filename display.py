@@ -32,10 +32,12 @@ for i in range(0, 4):
     blanking[i].value = False
 
 
-def set_digit(position, digit):
+def set_digit(position, digit, keep_blanking=False):
     if digit == None:
         blanking[position].value = True
         return
+    if not keep_blanking:
+        blanking[position].value = False
     data_a.value = digit & (1 << 0)
     data_b.value = digit & (1 << 1)
     data_c.value = digit & (1 << 2)
@@ -57,6 +59,10 @@ def display_hex(value):
     set_digit(2, value // 0x10 % 0x10)
     set_digit(3, value // 0x1 % 0x10)
 
+
+def display_blank():
+    for digit in range(0, 4):
+        set_digit(digit, None)
 
 blinking_position = None
 def blink_digit(position):
@@ -84,11 +90,11 @@ if __name__ == '__main__':
         time.sleep(0.01)
     time.sleep(0.5)
     
-    display_hex(0xcafe)
+    display_hex(0xCAFE)
     time.sleep(0.5)
-    display_hex(0xbabe)
+    display_hex(0xBABE)
     time.sleep(0.5)
-    display_hex(0x0ff0)
+    display_hex(0x0FF0)
     
     blink_digit(1)
     for i in range(0, 666):
