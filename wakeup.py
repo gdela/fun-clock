@@ -55,7 +55,7 @@ def _wakeup_confirmed():
 
 def _handle_normal_period():
     global current_mode
-    if current_mode == MODE_WOKE_UP:
+    if current_mode != MODE_NORMAL:
         current_mode = MODE_NORMAL
         stop_sound()
         lights_off()
@@ -142,10 +142,16 @@ if __name__ == '__main__':
     
     update_wakeup(JustTime(8,30), JustTime(8,00))
     print(f'at -30 min, mode: {current_mode}, sound: {get_current_sound()}')
+
     update_wakeup(JustTime(8,30), JustTime(8,20))
     print(f'at -10 min, mode: {current_mode}, sound: {get_current_sound()}')
+
+    update_wakeup(JustTime(8, 30), JustTime(8, 22))
+    print(f'at  -8 min, mode: {current_mode}, sound: {get_current_sound()}')
+
     update_wakeup(JustTime(8,30), JustTime(8,25))
     print(f'at  -5 min, mode: {current_mode}, sound: {get_current_sound()}')
+
     update_wakeup(JustTime(8,30), JustTime(8,29))
     print(f'at  -1 min, mode: {current_mode}, sound: {get_current_sound()}')
     
@@ -153,6 +159,7 @@ if __name__ == '__main__':
     
     update_wakeup(JustTime(8,30), JustTime(8,30))
     print(f'at   0 min, mode: {current_mode}, sound: {get_current_sound()}')
+
     update_wakeup(JustTime(8,30), JustTime(8,31))
     print(f'at  +1 min, mode: {current_mode}, sound: {get_current_sound()}')
     
